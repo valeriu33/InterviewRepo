@@ -6,5 +6,7 @@ namespace Shareholders.Domain
         public Shareholder Shareholder { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }
+
+        public decimal MoneyInvested { get; set; }
     }
 }

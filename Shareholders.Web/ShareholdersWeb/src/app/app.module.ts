@@ -6,6 +6,8 @@ import { CompanyInfoComponent } from './company-info/company-info.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,7 +17,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

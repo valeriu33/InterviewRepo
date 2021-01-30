@@ -4,6 +4,7 @@ import {
   ApexResponsive,
   ApexChart, ChartComponent
 } from 'ng-apexcharts';
+import {CompanyService} from '../services/company.service';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -21,14 +22,14 @@ export class CompanyInfoComponent implements OnInit {
   public chartOptions: Partial<ChartOptions>;
 
   @ViewChild('chart') chart: ChartComponent;
-  constructor() {
+  constructor(private companyService: CompanyService) {
     this.chartOptions = {
-      series: [44, 55, 13, 43, 22],
+      series: [],
       chart: {
         width: 380,
         type: 'pie'
       },
-      labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+      labels: [],
       responsive: [
         {
           breakpoint: 480,
@@ -43,6 +44,9 @@ export class CompanyInfoComponent implements OnInit {
         }
       ]
     };
+    const a = companyService.getByIdDymmy(1);
+    this.chartOptions.series = a.shareholders.map(s => s.amountOfMoney);
+    this.chartOptions.labels = a.shareholders.map(s => s.name);
   }
 
   ngOnInit(): void {

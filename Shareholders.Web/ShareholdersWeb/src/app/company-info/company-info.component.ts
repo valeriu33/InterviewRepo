@@ -26,6 +26,7 @@ export class CompanyInfoComponent implements OnInit {
   public selectedCompany: Observable<Company>;
 
   @ViewChild('chart') chart: ChartComponent;
+
   constructor(private companyService: CompanyService) {
     this.chartOptions = {
       series: [],
@@ -48,7 +49,11 @@ export class CompanyInfoComponent implements OnInit {
         }
       ]
     };
-    companyService.getAll().subscribe(c => this.companies = c);
+    companyService.getAll().subscribe(c => {
+      this.companies = c;
+      this.chartOptions.series = c[0].shareholders.map(s => s.amountOfMoney);
+      this.chartOptions.labels = c[0].shareholders.map(s => s.name);
+    });
   }
 
   ngOnInit(): void {

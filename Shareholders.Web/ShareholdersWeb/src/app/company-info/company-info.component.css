@@ -1,0 +1,7 @@
+.center {
+  margin: auto;
+  width: max-content;
+  border-radius: 20px;
+  box-shadow: 0px 2px 5px 4px grey;
+  padding: 10px;
+}

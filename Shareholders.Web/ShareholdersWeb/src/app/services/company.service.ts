@@ -14,6 +14,11 @@ export class CompanyService {
   public getById(id: number): Observable<Company> {
     return this.http.get<Company>(`${this.companyUrl}/${id}`);
   }
+
+  public getAll(): Observable<Company[]> {
+    return this.http.get<Company[]>(`${this.companyUrl}`);
+  }
+
   public getByIdDymmy(id: number): Company {
     return { id: 1, name: 'com', shareholders: [{name: 'share', amountOfMoney: 10}, {name: 'mare', amountOfMoney: 12}]};
   }

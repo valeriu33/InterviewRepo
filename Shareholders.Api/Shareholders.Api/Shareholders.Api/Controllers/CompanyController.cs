@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Shareholders.Api.ViewModel;
 using Shareholders.Application;
 
 namespace Shareholders.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CompanyController : ControllerBase
     {
         private readonly CompanyService companyService;
@@ -13,6 +15,12 @@ namespace Shareholders.Api.Controllers
         public CompanyController(CompanyService companyService)
         {
             this.companyService = companyService;
+        }
+        
+        [HttpGet("")]
+        public ActionResult<IEnumerable<CompanyViewModel>> Get()
+        {
+            return Ok(companyService.GetAllCompanies().Select(c => new CompanyViewModel(c)));
         }
         
         [HttpGet("{id}")]

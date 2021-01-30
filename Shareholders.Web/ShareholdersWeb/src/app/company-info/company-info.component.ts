@@ -5,6 +5,8 @@ import {
   ApexChart, ChartComponent
 } from 'ng-apexcharts';
 import {CompanyService} from '../services/company.service';
+import {Company} from '../models/company';
+import {Observable} from 'rxjs';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -20,6 +22,8 @@ export type ChartOptions = {
 })
 export class CompanyInfoComponent implements OnInit {
   public chartOptions: Partial<ChartOptions>;
+  public companies: Company[];
+  public selectedCompany: Observable<Company>;
 
   @ViewChild('chart') chart: ChartComponent;
   constructor(private companyService: CompanyService) {
@@ -44,12 +48,17 @@ export class CompanyInfoComponent implements OnInit {
         }
       ]
     };
-    const a = companyService.getByIdDymmy(1);
-    this.chartOptions.series = a.shareholders.map(s => s.amountOfMoney);
-    this.chartOptions.labels = a.shareholders.map(s => s.name);
+    companyService.getAll().subscribe(c => this.companies = c);
   }
 
   ngOnInit(): void {
   }
 
+  SelectCompany(id: number): void {
+    this.companyService.getById(id).subscribe(c => {
+        this.chartOptions.series = c.shareholders.map(s => s.amountOfMoney);
+        this.chartOptions.labels = c.shareholders.map(s => s.name);
+      }
+    );
+  }
 }

@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Shareholders.Domain;
@@ -11,6 +13,13 @@ namespace Shareholders.Application
         public CompanyService(IShareholdersContext context)
         {
             this.context = context;
+        }
+
+        public IEnumerable<Company> GetAllCompanies()
+        {
+            return context.Companies
+                .Include(c => c.ShareholderCompany)
+                .ThenInclude(sc => sc.Shareholder);
         }
         
         public Company GetCompanyById(int id)

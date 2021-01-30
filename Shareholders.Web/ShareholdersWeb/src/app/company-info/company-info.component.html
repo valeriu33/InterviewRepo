@@ -1,6 +1,13 @@
 <h1>Company Information:</h1>
 
-<input>
+<select
+  name="contactMethod"
+  id="contactMethod"
+  class="form-control"
+  [(ngModel)]="companies">
+  <option *ngFor="let company of companies" [value]="company.id" (click)="SelectCompany(company.id)">{{ company.name }}</option>
+</select>
+
 <div id="chart">
   <apx-chart
     [series]="chartOptions.series"

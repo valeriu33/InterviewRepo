@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Shareholders.Persistence;
 
 namespace Shareholders.Api
 {
@@ -27,10 +28,7 @@ namespace Shareholders.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Shareholders.Api", Version = "v1"});
-            });
+            services.ConfigureDbContext(Configuration.GetConnectionString("RemoteConnection"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,8 +37,6 @@ namespace Shareholders.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shareholders.Api v1"));
             }
 
             app.UseHttpsRedirection();

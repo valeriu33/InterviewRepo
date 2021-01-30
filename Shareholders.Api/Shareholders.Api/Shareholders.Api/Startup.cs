@@ -22,7 +22,7 @@ namespace Shareholders.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.ConfigureDbContext(Configuration.GetConnectionString("RemoteConnection"));
+            services.ConfigureDbContext(Configuration.GetConnectionString("LocalDb"));
 
             services.AddScoped<CompanyService>();
         }

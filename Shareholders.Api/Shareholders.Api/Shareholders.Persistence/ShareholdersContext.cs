@@ -6,6 +6,8 @@ namespace Shareholders.Persistence
 {
     public class ShareholdersContext: DbContext, IShareholdersContext
     {
+        public ShareholdersContext(DbContextOptions<ShareholdersContext> options): base(options)
+        { }
         public DbSet<Company> Companies { get; set; }
 
         public DbSet<Shareholder> Shareholders { get; set; }
